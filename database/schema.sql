@@ -1,0 +1,92 @@
+CREATE DATABASE light_hill_payflow;
+USE light_hill_payflow;
+
+CREATE TABLE users (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  phone VARCHAR(20) NOT NULL,
+  position VARCHAR(255) NOT NULL,
+  role ENUM('requester','pba','cfo','coo','accountant','admin') NOT NULL DEFAULT 'requester',
+  email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+  account_status ENUM('pending','active','rejected','deactivated') NOT NULL DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE requests (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  request_id VARCHAR(30) NOT NULL UNIQUE,
+  requester_id INT UNSIGNED NOT NULL,
+  subject VARCHAR(200) NOT NULL,
+  amount DECIMAL(15,2) NOT NULL,
+  description TEXT NOT NULL,
+  status ENUM('pending_pba','pending_cfo','pending_coo','approved','awaiting_payment','paid','rejected','cancelled','expired') NOT NULL DEFAULT 'pending_pba',
+  rejection_reason TEXT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (requester_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE request_attachments (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  request_id INT UNSIGNED NOT NULL,
+  uploaded_by INT UNSIGNED NOT NULL,
+  file_name VARCHAR(255) NOT NULL,
+  file_path VARCHAR(500) NOT NULL,
+  file_type VARCHAR(100) NOT NULL,
+  file_size INT UNSIGNED NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE approvals (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  request_id INT UNSIGNED NOT NULL,
+  approver_id INT UNSIGNED NOT NULL,
+  role ENUM('pba','cfo','coo') NOT NULL,
+  action ENUM('approved','rejected') NOT NULL,
+  comment TEXT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (approver_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE payments (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  request_id INT UNSIGNED NOT NULL UNIQUE,
+  accountant_id INT UNSIGNED NOT NULL,
+  amount_paid DECIMAL(15,2) NOT NULL,
+  payment_date DATETIME NOT NULL,
+  payment_reference VARCHAR(100) NULL,
+  proof_file VARCHAR(500) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (accountant_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE notifications (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  request_id INT UNSIGNED NULL,
+  title VARCHAR(150) NOT NULL,
+  message TEXT NOT NULL,
+  is_read BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+
+CREATE TABLE audit_logs (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  request_id INT UNSIGNED NULL,
+  action VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY (request_id) REFERENCES requests(id) ON DELETE SET NULL ON UPDATE CASCADE
+);

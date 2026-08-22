@@ -1,0 +1,130 @@
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background-color: var(--color-card-background);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 250px;
+}
+
+.stat-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-small);
+    margin-bottom: 8px;
+}
+
+.stat-card h2 {
+    color: var(--color-primary);
+    font-size: var(--font-size-h1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    font-size: var(--font-size-h4);
+    color: var(--color-text-primary);
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-family);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-card-background);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 12px 16px;
+    background-color: var(--color-background);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table td {
+    padding: 12px 16px;
+    font-size: var(--font-size-small);
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.data-table tbody tr {
+    cursor: pointer;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--color-background);
+}
+
+.btn-approve-sm, .btn-reject-sm {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.btn-approve-sm {
+    background-color: var(--color-success);
+    color: white;
+}
+
+.btn-reject-sm {
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: #e0e7ff;
+    color: #4338ca;
+}
+
+.status-active {
+    background-color: #d1fae5;
+    color: var(--color-success);
+}
+
+.status-pending {
+    background-color: #fef3c7;
+    color: var(--color-warning);
+}
+
+.status-deactivated, .status-rejected {
+    background-color: #fee2e2;
+    color: var(--color-danger);
+}

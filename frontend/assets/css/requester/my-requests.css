@@ -1,0 +1,7 @@
+.data-table tr {
+    cursor: pointer;
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--color-background);
+}

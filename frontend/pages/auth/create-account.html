@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Account | Light Hill PayFlow</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/auth/create-account.css" />
+    <script src="../../assets/js/auth/create-account.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="signup-card">
+        <div class="header">
+          <div class="logo">
+            <img src="../../assets/images/logo.jpg" alt="" />
+          </div>
+          <h2>Light Hill PayFlow</h2>
+          <p>DIGITAL FINANCIAL REQUEST &amp; APPROVAL SYSTEM</p>
+        </div>
+        <hr />
+
+        <aside>
+          <i class="fa-solid fa-circle-exclamation"></i> Your account will need
+          administrator approval after email verification.
+        </aside>
+
+        <form action="" method>
+          <div class="field full-width">
+            <label for="full-name"
+              >Full Name <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="full-name"
+              name="full-name"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="email"
+              >Corporate Email <span class="required">*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="jdeo@lighthill.com"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="phone-number"
+              >Phone Number <span class="required">*</span></label
+            >
+            <input
+              type="phone-number"
+              id="phone-number"
+              name="phone-number"
+              placeholder=" +1 (555) 123-4567"
+              required
+            />
+          </div>
+
+          <div class="field full-width">
+            <label for="position"
+              >Office Position / Department
+              <span class="required">*</span></label
+            >
+            <input
+              type="text"
+              id="position"
+              name="position"
+              placeholder="e.g Financial Analyst - Tresury"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="password"
+              >Password<span class="required">*</span></label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="8+ character"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="confirmpassword"
+              >Confirm Password<span class="required">*</span></label
+            >
+            <input
+              type="password"
+              id="confirmpassword"
+              name="confirmpassword"
+              placeholder="Repeat password"
+              required
+            />
+          </div>
+
+          <button type="submit">Create Account</button>
+        </form>
+        <hr />
+
+        <p>
+          Already have an account? <a href="login.html" id="sign-in">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

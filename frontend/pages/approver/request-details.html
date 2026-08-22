@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request Details | Light Hill PayFlow</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/dashboard-shell.css" />
+    <link rel="stylesheet" href="../../assets/css/approver/dashboard.css" />
+    <link rel="stylesheet" href="../../assets/css/approver/request-details.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script src="../../assets/js/dashboard-shell.js" defer></script>
+    <script src="../../assets/js/approver/request-details.js" defer></script>
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <i class="fa-solid fa-mountain"></i>
+          <span>PayFlow</span>
+        </div>
+        <nav class="sidebar-nav" id="sidebar-nav"></nav>
+        <button class="sidebar-logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+        </button>
+      </aside>
+
+      <div class="main-content">
+        <div class="topbar">
+          <h1>Request Details</h1>
+          <div class="topbar-user">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="user-name">Loading...</span>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <a href="requests.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Requests</a>
+
+          <div id="request-container">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

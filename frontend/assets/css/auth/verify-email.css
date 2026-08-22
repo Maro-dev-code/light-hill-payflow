@@ -1,0 +1,113 @@
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verify-email-card{
+    min-width: 350px;
+    width: 35%;
+    height: 75vh;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    border: 1px solid #88a3c53f;
+    border-radius: 20px;
+    padding: 15px 30px;
+    box-shadow: 1px 3px 5px #e0e1e285 ;
+    background-color: var(--color-card-background);
+    
+}
+
+.header{
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.logo img{
+    width: 80px;
+}
+
+.header h2{
+    color: var(--color-primary);
+    font-size: var(--font-size-h4);
+}
+
+.header p{
+    font-size: var(--font-size-small);
+    font-weight: bold;
+    color: var(--color-text-secondary);
+    margin-top: 7px;
+}
+
+.fa-envelope{
+    margin: 20px;
+    font-size: 25px;
+    background-color: #a0e6db5d;
+    padding: 15px;
+    border-radius: 50%;
+    color: #053179;
+}
+
+.description h2{
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.description p{
+    font-size: 12px;
+    color: #64748B;
+}
+
+.otp-container{
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin: 20px 0;
+}
+
+
+
+.otp-input{
+    width: 55px;
+    height: 55px; 
+    text-align: center;
+    font-weight: bold;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid #9c9da0;
+    font-size: var(--font-size-h3);
+}
+
+.otp-input:focus{
+    border-color: #04484e;
+}
+
+button{
+    background-color: var(--color-accent);
+    color: var(--color-background);
+    outline: none;
+    border: none;
+    width: 90%;
+    padding: 7px 0;
+    font-size: 17px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.resend a{
+    color: var(--color-accent);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+
+
+

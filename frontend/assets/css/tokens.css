@@ -1,0 +1,27 @@
+:root {
+  /* Colors — Core */
+  --color-primary: #1E3A5F;
+  --color-accent: #2CB5A0;
+  --color-background: #FAFBFC;
+  --color-card-background: #FFFFFF;
+
+  /* Colors — Text */
+  --color-text-primary: #1E293B;
+  --color-text-secondary: #64748B;
+
+  /* Colors — Status */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  /* Typography */
+  --font-family: "Inter", sans-serif;
+
+  --font-size-h1: 36px;
+  --font-size-h2: 32px;
+  --font-size-h3: 24px;
+  --font-size-h4: 22px;
+  --font-size-body: 17px;
+  --font-size-small: 14px;
+}

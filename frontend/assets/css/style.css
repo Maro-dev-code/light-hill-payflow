@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-body);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+
+@media (max-width: 768px) {
+
+  /* Dashboard layout: sidebar becomes a top bar instead of a side column */
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px;
+    overflow-x: auto;
+  }
+
+  .sidebar-logo {
+    border-bottom: none;
+    border-right: 1px solid rgba(255,255,255,0.15);
+    padding: 0 15px 0 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-grow: 0;
+  }
+
+  .sidebar-nav a {
+    padding: 8px 12px;
+    white-space: nowrap;
+    font-size: 12px;
+  }
+
+  .sidebar-logout {
+    margin-top: 0;
+    margin-left: auto;
+    white-space: nowrap;
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  /* Topbar: stack title and user info if needed */
+  .topbar {
+    padding: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .topbar h1 {
+    font-size: var(--font-size-h4);
+  }
+
+  .page-content {
+    padding: 15px;
+  }
+
+  /* Stat cards: stack to one column instead of a row of 4 */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  /* Tables: allow horizontal scroll instead of squashing columns unreadably */
+   .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Detail grids (request details, user details, payment details): stack to one column */
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Auth cards (login, create-account, etc): full width with side padding instead of fixed 30% */
+  .container {
+    padding: 20px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .login-card,
+  .signup-card,
+  .forgot-card,
+  .reset-card,
+  .verify-email-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Forms: full width fields already stack by default, just tighten spacing */
+  .form-card {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  /* Section headers: stack button below title on narrow screens */
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Modal (approve/reject): fit narrow screens */
+  .modal-box {
+    width: 90%;
+  }
+
+  /* Notification dropdown: fit narrow screens instead of overflowing */
+  .notif-dropdown {
+    width: 280px;
+    right: -50px;
+  }
+
+  /* Create-account grid fields (if using a 2-col field layout) stack to 1 column */
+  .field.full-width,
+  .field {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-nav a span,
+  .sidebar-logout span {
+    display: none;
+  }
+}

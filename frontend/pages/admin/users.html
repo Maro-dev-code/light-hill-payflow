@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Users | Light Hill PayFlow</title>
+    <link rel="stylesheet" href="../../assets/css/tokens.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/dashboard-shell.css" />
+    <link rel="stylesheet" href="../../assets/css/admin/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script src="../../assets/js/dashboard-shell.js" defer></script>
+    <script src="../../assets/js/admin/users.js" defer></script>
+  </head>
+  <body>
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <i class="fa-solid fa-mountain"></i>
+          <span>PayFlow</span>
+        </div>
+        <nav class="sidebar-nav" id="sidebar-nav"></nav>
+        <button class="sidebar-logout" id="logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Log Out
+        </button>
+      </aside>
+
+      <div class="main-content">
+        <div class="topbar">
+          <h1>All Users</h1>
+          <div class="topbar-user">
+            <i class="fa-solid fa-circle-user"></i>
+            <span id="user-name">Loading...</span>
+          </div>
+        </div>
+
+        <div class="page-content">
+          <div class="section-header">
+            <h2>User Directory</h2>
+            <a href="create-privileged-account.html" class="btn-primary">
+              <i class="fa-solid fa-user-plus"></i> Create Account
+            </a>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="users-body">
+              <tr><td colspan="5">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

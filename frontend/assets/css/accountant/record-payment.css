@@ -1,0 +1,109 @@
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-small);
+    margin-bottom: 20px;
+}
+
+.back-link:hover {
+    color: var(--color-primary);
+}
+
+#request-summary {
+    background-color: var(--color-card-background);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+}
+
+#request-summary h2 {
+    font-size: var(--font-size-h4);
+    color: var(--color-primary);
+    margin-bottom: 5px;
+}
+
+#request-summary p {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+}
+
+#request-summary .amount {
+    font-size: var(--font-size-h2);
+    color: var(--color-text-primary);
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.form-card {
+    background-color: var(--color-card-background);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+    margin-bottom: 6px;
+}
+
+label span {
+    color: var(--color-danger);
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #64748b5e;
+    border-radius: 5px;
+    outline: none;
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    margin-bottom: 18px;
+}
+
+input:focus {
+    border: 2px solid #142c4d5e;
+    box-shadow: 0 0 5px rgba(153, 144, 235, 0.3);
+}
+
+button {
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    background-color: var(--color-accent);
+    font-weight: 600;
+    font-size: var(--font-size-body);
+}
+
+.hidden { display: none; }
+
+.error-message {
+    background-color: #fee2e2;
+    color: var(--color-danger);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: var(--font-size-small);
+    margin-bottom: 15px;
+}
+
+.success-message {
+    background-color: #d1fae5;
+    color: var(--color-success);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: var(--font-size-small);
+    margin-bottom: 15px;
+}

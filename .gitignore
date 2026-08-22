@@ -1,0 +1,7 @@
+/vendor/
+/backend/config/database.php
+/backend/config/mailer.php
+/backend/uploads/requests/*
+/backend/uploads/payments/*
+!/backend/uploads/requests/.gitkeep
+!/backend/uploads/payments/.gitkeep
