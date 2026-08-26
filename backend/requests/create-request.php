@@ -12,8 +12,17 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 
 $subject = trim($_POST['subject'] ?? '');
+$sbu = trim($_POST['sbu'] ?? '');
 $amount = trim($_POST['amount'] ?? '');
 $description = trim($_POST['description'] ?? '');
+$bankName = trim($_POST['bank_name'] ?? '');
+$accountNumber = trim($_POST['account_number'] ?? '');
+$accountName = trim($_POST['account_name'] ?? '');
+
+if (empty($sbu) || empty($bankName) || empty($accountNumber) || empty($accountName)) {
+    echo json_encode(['success' => false, 'message' => 'SBU and bank details are required.']);
+    exit;
+}
 
 if (empty($subject) || empty($amount) || empty($description)) {
     echo json_encode(['success' => false, 'message' => 'Subject, amount, and description are required.']);
@@ -31,9 +40,8 @@ $countStmt = $pdo->query("SELECT COUNT(*) as total FROM requests WHERE YEAR(crea
 $count = $countStmt->fetch()['total'] + 1;
 $requestId = 'LH-' . $year . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
 
-$stmt = $pdo->prepare('INSERT INTO requests (request_id, requester_id, subject, amount, description, status) VALUES (?, ?, ?, ?, ?, ?)');
-$stmt->execute([$requestId, $userId, $subject, $amount, $description, 'pending_pba']);
-
+$stmt = $pdo->prepare('INSERT INTO requests (request_id, requester_id, subject, sbu, amount, description, bank_name, account_number, account_name, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+$stmt->execute([$requestId, $userId, $subject, $sbu, $amount, $description, $bankName, $accountNumber, $accountName, 'pending_pba']);
 $newRequestDbId = $pdo->lastInsertId();
 
 // Handle file uploads, if any were sent

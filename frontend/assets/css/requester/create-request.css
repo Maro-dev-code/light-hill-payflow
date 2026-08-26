@@ -1,80 +1,98 @@
 .form-card {
-    background-color: var(--color-card-background);
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 600px;
+  background-color: var(--color-card-background);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 600px;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
-    color: var(--color-text-primary);
-    font-weight: 600;
-    font-size: var(--font-size-small);
-    margin-bottom: 6px;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: var(--font-size-small);
+  margin-bottom: 6px;
 }
 
 label span {
-    color: var(--color-danger);
+  color: var(--color-danger);
 }
 
-input, textarea {
-    padding: 10px;
-    border: 1px solid #64748b5e;
-    border-radius: 5px;
-    outline: none;
-    font-family: var(--font-family);
-    font-size: var(--font-size-small);
-    margin-bottom: 18px;
+input,
+textarea,
+select {
+  padding: 10px;
+  border: 1px solid #64748b5e;
+  border-radius: 5px;
+  outline: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-small);
+  margin-bottom: 18px;
+  width: 100%;
+  background-color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 35px;
 }
 
 textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
-input:focus, textarea:focus {
-    border: 2px solid #142c4d5e;
-    box-shadow: 0 0 5px rgba(153, 144, 235, 0.3);
+input:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid #142c4d5e;
+  box-shadow: 0 0 5px rgba(153, 144, 235, 0.3);
 }
 
 .field-hint {
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    margin-top: -12px;
-    margin-bottom: 18px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: -12px;
+  margin-bottom: 18px;
 }
 
 button {
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    background-color: var(--color-accent);
-    font-weight: 600;
-    font-size: var(--font-size-body);
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: var(--color-accent);
+  font-weight: 600;
+  font-size: var(--font-size-body);
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
 .error-message {
-    background-color: #fee2e2;
-    color: var(--color-danger);
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: var(--font-size-small);
-    margin-bottom: 15px;
+  background-color: #fee2e2;
+  color: var(--color-danger);
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: var(--font-size-small);
+  margin-bottom: 15px;
 }
 
 .success-message {
-    background-color: #d1fae5;
-    color: var(--color-success);
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: var(--font-size-small);
-    margin-bottom: 15px;
+  background-color: #d1fae5;
+  color: var(--color-success);
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: var(--font-size-small);
+  margin-bottom: 15px;
 }

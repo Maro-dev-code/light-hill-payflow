@@ -57,6 +57,17 @@
                 required
               />
 
+              <label for="sbu">SBU <span class="required">*</span></label>
+              <select id="sbu" name="sbu" required>
+                <option value="">Select SBU</option>
+                <option value="Light Hill Investment">
+                  Light Hill Investment
+                </option>
+                <option value="Logistics">Logistics</option>
+                <option value="Insighthills">Insighthills</option>
+                <option value="FX Index">FX Index</option>
+              </select>
+
               <label for="amount"
                 >Amount (₦) <span class="required">*</span></label
               >
@@ -80,6 +91,39 @@
                 placeholder="Explain the purpose of this request..."
                 required
               ></textarea>
+
+              <label for="bank-name"
+                >Bank Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="bank-name"
+                name="bank-name"
+                placeholder="e.g. GTBank"
+                required
+              />
+
+              <label for="account-number"
+                >Account Number <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="account-number"
+                name="account-number"
+                placeholder="e.g. 0123456789"
+                required
+              />
+
+              <label for="account-name"
+                >Account Name <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="account-name"
+                name="account-name"
+                placeholder="Account holder's name"
+                required
+              />
 
               <label for="attachments">Supporting Attachments</label>
               <input

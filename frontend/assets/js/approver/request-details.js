@@ -37,16 +37,24 @@ document.addEventListener("DOMContentLoaded", async () => {
                     </div>
                     <span class="status-badge status-${r.status}">${r.status.replace("_", " ")}</span>
                 </div>
-                <div class="detail-grid">
-                    <div class="detail-field">
-                        <label>Amount</label>
-                        <p>₦${Number(r.amount).toLocaleString()}</p>
-                    </div>
-                    <div class="detail-field">
-                        <label>Date Submitted</label>
-                        <p>${new Date(r.created_at).toLocaleDateString()}</p>
-                    </div>
-                </div>
+            <div class="detail-grid">
+    <div class="detail-field">
+        <label>Amount</label>
+        <p>₦${Number(r.amount).toLocaleString()}</p>
+    </div>
+    <div class="detail-field">
+        <label>Date Submitted</label>
+        <p>${new Date(r.created_at).toLocaleDateString()}</p>
+    </div>
+    <div class="detail-field">
+        <label>SBU</label>
+        <p>${r.sbu || "—"}</p>
+    </div>
+    <div class="detail-field">
+        <label>Bank Details</label>
+        <p>${r.bank_name || "—"} · ${r.account_number || "—"} · ${r.account_name || "—"}</p>
+    </div>
+</div>
                 <div class="detail-field">
                     <label>Description</label>
                     <p>${r.description}</p>
