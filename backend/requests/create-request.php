@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once '../config/mailer.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -61,6 +62,23 @@ if (!empty($_FILES['attachments']['name'][0])) {
             $attStmt->execute([$newRequestDbId, $userId, $originalName, $safeName, $fileType, $fileSize]);
         }
     }
+}
+
+// Notify all active PBA accounts that a new request needs review
+$pbaStmt = $pdo->prepare('SELECT id, name, email FROM users WHERE role = "pba" AND account_status = "active"');
+$pbaStmt->execute();
+$pbaUsers = $pbaStmt->fetchAll();
+
+$notifStmt = $pdo->prepare('INSERT INTO notifications (user_id, request_id, title, message) VALUES (?, ?, ?, ?)');
+
+foreach ($pbaUsers as $pba) {
+    $notifStmt->execute([
+        $pba['id'],
+        $newRequestDbId,
+        'New Request Awaiting Review',
+        "Request \"{$subject}\" from " . $_SESSION['name'] . " is awaiting your review."
+    ]);
+    sendNotificationEmail($pba['email'], $pba['name'], 'New Request Awaiting Review', "Request \"{$subject}\" from " . $_SESSION['name'] . " is awaiting your review.");
 }
 
 echo json_encode(['success' => true, 'request_id' => $requestId]);

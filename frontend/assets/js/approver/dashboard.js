@@ -30,14 +30,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       .slice(0, 5)
       .map(
         (r) => `
-            <tr onclick="window.location.href='request-details.html?id=${r.id}'">
-                <td>${r.request_id}</td>
-                <td>${r.requester_name}</td>
-                <td>${r.subject}</td>
-                <td>₦${Number(r.amount).toLocaleString()}</td>
-                <td>${new Date(r.created_at).toLocaleDateString()}</td>
-            </tr>
-        `,
+    <tr onclick="window.location.href='request-details.html?id=${r.id}'">
+        <td data-label="Request ID">${r.request_id}</td>
+        <td data-label="Requester">${r.requester_name}</td>
+        <td data-label="Subject">${r.subject}</td>
+        <td data-label="Amount">₦${Number(r.amount).toLocaleString()}</td>
+        <td data-label="Date">${new Date(r.created_at).toLocaleDateString()}</td>
+    </tr>
+`,
       )
       .join("");
   } catch (err) {

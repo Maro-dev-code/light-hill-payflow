@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     errorBox.classList.add("hidden");
     successBox.classList.add("hidden");
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
+
     const formData = new FormData();
     formData.append("subject", document.getElementById("subject").value);
     formData.append("sbu", document.getElementById("sbu").value);
@@ -47,6 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         successBox.textContent =
           "Request submitted successfully! Redirecting...";
         successBox.classList.remove("hidden");
+        form.reset();
         setTimeout(() => {
           window.location.href = "my-requests.html";
         }, 1500);
@@ -57,6 +62,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
       errorBox.textContent = "Something went wrong. Please try again.";
       errorBox.classList.remove("hidden");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit Request";
     }
   });
 });

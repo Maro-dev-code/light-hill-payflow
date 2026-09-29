@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once '../config/mailer.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -76,13 +77,13 @@ if ($newStatus !== 'approved') {
         $nextApprovers = $pdo->prepare('SELECT id FROM users WHERE role = ? AND account_status = "active"');
         $nextApprovers->execute([$nextRole]);
         foreach ($nextApprovers->fetchAll() as $approver) {
-            $notifStmt->execute([
-                $approver['id'],
-                $requestId,
-                'New Request Awaiting Review',
-                "Request \"{$request['subject']}\" is now awaiting your review."
-            ]);
-        }
+    $notifStmt->execute([
+        $approver['id'],
+        $requestId,
+        'New Request Awaiting Review',
+        "Request \"{$request['subject']}\" is now awaiting your review."
+    ]);
+}
     }
 }
 

@@ -34,6 +34,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    const attachmentsHTML =
+      data.attachments && data.attachments.length > 0
+        ? data.attachments
+            .map(
+              (a) => `
+        <a href="/light-hill-payflow/backend/uploads/requests/${a.file_path}" target="_blank" class="attachment-item" style="margin-top:8px;">
+            <i class="fa-solid fa-paperclip"></i> ${a.file_name}
+        </a>
+    `,
+            )
+            .join("")
+        : '<p style="font-size:13px; color:var(--color-text-secondary);">No attachments.</p>';
+
     summaryBox.innerHTML = `
     <h2>${requestData.subject}</h2>
     <p>${requestData.request_id} · Requested by ${requestData.requester_name}</p>
@@ -43,6 +56,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         <p><strong>Bank:</strong> ${requestData.bank_name || "—"}</p>
         <p><strong>Account Number:</strong> ${requestData.account_number || "—"}</p>
         <p><strong>Account Name:</strong> ${requestData.account_name || "—"}</p>
+    </div>
+    <div style="margin-top:15px; padding-top:15px; border-top:1px solid #e2e8f0;">
+        <p style="font-size:13px; font-weight:600; color:var(--color-text-primary); margin-bottom:8px;">Attachments</p>
+        ${attachmentsHTML}
     </div>
 `;
 
@@ -56,6 +73,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
     errorBox.classList.add("hidden");
     successBox.classList.add("hidden");
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Processing...";
 
     const formData = new FormData();
     formData.append("request_id", requestId);
@@ -100,6 +121,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
       errorBox.textContent = "Something went wrong. Please try again.";
       errorBox.classList.remove("hidden");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Confirm Payment";
     }
   });
 });

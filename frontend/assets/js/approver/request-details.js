@@ -85,8 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <p><strong>${a.approver_name}</strong> (${a.role.toUpperCase()}) ${a.action} this request</p>
-                            ${a.comment ? `<p>"${a.comment}"</p>` : ""}
+                            <p><strong>${a.approver_name}</strong> (${a.role.toUpperCase()}) <span style="color: ${a.action === "rejected" ? "var(--color-danger)" : "var(--color-success)"}; font-weight: 600;">${a.action}</span> this request</p>                            ${a.comment ? `<p>"${a.comment}"</p>` : ""}
                             <span>${new Date(a.created_at).toLocaleString()}</span>
                         </div>
                     </div>
@@ -95,6 +94,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                         .join("")
                 }
             </div>
+
+                        </div>
 
             <div class="detail-card">
                 <h3 class="section-title">Attachments</h3>
@@ -112,6 +113,63 @@ document.addEventListener("DOMContentLoaded", async () => {
                         .join("")
                 }
             </div>
+            
+            ${
+              data.proof_of_usage && data.proof_of_usage.length > 0
+                ? `
+<div class="detail-card">
+    <h3 class="section-title">Proof of Usage</h3>
+    ${data.proof_of_usage
+      .map(
+        (p) => `
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <p><strong>${p.uploader_name}</strong> submitted: "${p.comment}"</p>
+                <a href="/light-hill-payflow/backend/uploads/proof-of-usage/${p.file_path}" target="_blank" class="attachment-item" style="margin-top: 6px;">
+                    <i class="fa-solid fa-file"></i> ${p.file_name}
+                </a>
+                <span>${new Date(p.created_at).toLocaleString()}</span>
+            </div>
+        </div>
+    `,
+      )
+      .join("")}
+</div>`
+                : ""
+            }
+
+
+            ${
+              data.payment
+                ? `
+<div class="detail-card">
+    <h3 class="section-title">Payment Information</h3>
+    <div class="detail-grid">
+        <div class="detail-field">
+            <label>Amount Paid</label>
+            <p>₦${Number(data.payment.amount_paid).toLocaleString()}</p>
+        </div>
+        <div class="detail-field">
+            <label>Payment Date</label>
+            <p>${new Date(data.payment.payment_date).toLocaleDateString()}</p>
+        </div>
+        ${
+          data.payment.payment_reference
+            ? `
+        <div class="detail-field">
+            <label>Reference</label>
+            <p>${data.payment.payment_reference}</p>
+        </div>`
+            : ""
+        }
+    </div>
+    <a href="/light-hill-payflow/backend/uploads/payments/${data.payment.proof_file}" target="_blank" class="attachment-item" style="margin-top: 15px;">
+        <i class="fa-solid fa-file-invoice"></i> View Proof of Payment
+    </a>
+</div>`
+                : ""
+            }
         `;
 
     if (canAct) {
@@ -161,6 +219,10 @@ async function submitAction(action, requestId, modal) {
     alert("A reason is required to reject a request.");
     return;
   }
+
+  const confirmBtn = document.getElementById("modal-confirm");
+  confirmBtn.disabled = true;
+  confirmBtn.textContent = "Processing...";
 
   const endpoint =
     action === "approve" ? "approve-request.php" : "reject-request.php";

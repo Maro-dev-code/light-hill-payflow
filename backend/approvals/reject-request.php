@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once '../config/mailer.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -64,5 +65,6 @@ $notifStmt->execute([
     'Request Rejected',
     "Your request \"{$request['subject']}\" was rejected: $comment"
 ]);
+
 
 echo json_encode(['success' => true, 'message' => 'Request rejected.']);

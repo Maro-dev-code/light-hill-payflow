@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/database.php';
+require_once '../config/mailer.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -91,12 +92,13 @@ try {
     $pdo->commit();
 
     $notifStmt = $pdo->prepare('INSERT INTO notifications (user_id, request_id, title, message) VALUES (?, ?, ?, ?)');
-$notifStmt->execute([
-    $request['requester_id'],
-    $requestId,
-    'Payment Received',
-    "Payment of ₦" . number_format($amountPaid, 2) . " has been recorded for your request \"{$request['subject']}\"."
-]);
+    $notifStmt->execute([
+        $request['requester_id'],
+        $requestId,
+        'Payment Received',
+        "Payment of ₦" . number_format($amountPaid, 2) . " has been recorded for your request \"{$request['subject']}\"."
+
+    ]);
 
 } catch (PDOException $e) {
     $pdo->rollBack();

@@ -29,6 +29,7 @@ async function loadRequest(requestId, container) {
     const approvals = data.approvals;
     const attachments = data.attachments;
     const payment = data.payment;
+    const proofOfUsage = data.proof_of_usage;
     const canCancel = r.status === "pending_pba";
 
     container.innerHTML = `
@@ -125,8 +126,7 @@ async function loadRequest(requestId, container) {
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <p><strong>${a.approver_name}</strong> (${a.role.toUpperCase()}) ${a.action} this request</p>
-                            ${a.comment ? `<p>"${a.comment}"</p>` : ""}
+                            <p><strong>${a.approver_name}</strong> (${a.role.toUpperCase()}) <span style="color: ${a.action === "rejected" ? "var(--color-danger)" : "var(--color-success)"}; font-weight: 600;">${a.action}</span> this request</p>                            ${a.comment ? `<p>"${a.comment}"</p>` : ""}
                             <span>${new Date(a.created_at).toLocaleString()}</span>
                         </div>
                     </div>
@@ -152,12 +152,106 @@ async function loadRequest(requestId, container) {
                         .join("")
                 }
             </div>
+            ${
+              r.status === "paid"
+                ? `
+<div class="detail-card">
+    <h3 class="section-title">Proof of Usage</h3>
+    <div id="proof-error" class="error-message hidden" style="margin-bottom: 15px;"></div>
+    <form id="proof-form" style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #f1f5f9;">
+        <label style="font-size: 13px; font-weight: 600; color: var(--color-text-primary); display: block; margin-bottom: 6px;">Upload Document</label>
+        <input type="file" id="proof-file" required style="margin-bottom: 12px; display: block;">
+        <label style="font-size: 13px; font-weight: 600; color: var(--color-text-primary); display: block; margin-bottom: 6px;">Comment</label>
+        <textarea id="proof-comment" rows="2" placeholder="Explain what this document shows..." required style="width: 100%; padding: 8px; border: 1px solid #64748b5e; border-radius: 5px; font-family: var(--font-family); font-size: 13px; margin-bottom: 12px;"></textarea>
+        <button type="submit" style="padding: 8px 16px; border-radius: 6px; border: none; background-color: var(--color-accent); color: white; font-weight: 600; cursor: pointer; font-size: 13px;">Submit Proof</button>
+    </form>
+    <div id="proof-list">
+        ${
+          proofOfUsage.length === 0
+            ? "<p>No proof of usage submitted yet.</p>"
+            : proofOfUsage
+                .map(
+                  (p) => `
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <p><strong>${p.uploader_name}</strong> submitted: "${p.comment}"</p>
+                    <a href="/light-hill-payflow/backend/uploads/proof-of-usage/${p.file_path}" target="_blank" class="attachment-item" style="margin-top: 6px;">
+                        <i class="fa-solid fa-file"></i> ${p.file_name}
+                    </a>
+                    <span>${new Date(p.created_at).toLocaleString()}</span>
+                </div>
+            </div>
+        `,
+                )
+                .join("")
+        }
+    </div>
+</div>`
+                : ""
+            }
         `;
 
     if (canCancel) {
       document
         .getElementById("cancel-btn")
         .addEventListener("click", () => cancelRequest(requestId, container));
+    }
+    async function submitProof(e, requestId, container) {
+      e.preventDefault();
+
+      const errorBox = document.getElementById("proof-error");
+      errorBox.classList.add("hidden");
+
+      const fileInput = document.getElementById("proof-file");
+      const comment = document.getElementById("proof-comment").value;
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+
+      if (!fileInput.files[0]) {
+        errorBox.textContent = "Please select a file.";
+        errorBox.classList.remove("hidden");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Uploading...";
+
+      const formData = new FormData();
+      formData.append("request_id", requestId);
+      formData.append("comment", comment);
+      formData.append("document", fileInput.files[0]);
+
+      try {
+        const res = await fetch(
+          "/light-hill-payflow/backend/requests/submit-proof.php",
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+        const data = await res.json();
+
+        if (data.success) {
+          loadRequest(requestId, container);
+        } else {
+          errorBox.textContent = data.message;
+          errorBox.classList.remove("hidden");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Proof";
+        }
+      } catch (err) {
+        errorBox.textContent = "Something went wrong. Please try again.";
+        errorBox.classList.remove("hidden");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Proof";
+      }
+    }
+    if (r.status === "paid") {
+      document
+        .getElementById("proof-form")
+        .addEventListener("submit", (e) =>
+          submitProof(e, requestId, container),
+        );
     }
   } catch (err) {
     container.innerHTML = "<p>Failed to load request details.</p>";

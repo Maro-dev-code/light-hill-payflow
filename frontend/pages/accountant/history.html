@@ -40,36 +40,51 @@
         <div class="page-content">
           <div class="section-header">
             <h2>All Payments You've Recorded</h2>
-            <div style="display: flex; gap: 10px; align-items: center">
-              <input
-                type="date"
-                id="export-from"
-                style="
-                  padding: 8px;
-                  border: 1px solid #64748b5e;
-                  border-radius: 6px;
-                  font-size: 13px;
-                "
-              />
-              <input
-                type="date"
-                id="export-to"
-                style="
-                  padding: 8px;
-                  border: 1px solid #64748b5e;
-                  border-radius: 6px;
-                  font-size: 13px;
-                "
-              />
-              <button
-                id="export-btn"
-                class="btn-primary"
-                style="border: none; cursor: pointer"
-              >
-                <i class="fa-solid fa-file-excel"></i> Export to Excel
-              </button>
-            </div>
+            <button
+              id="export-btn"
+              class="btn-primary"
+              style="border: none; cursor: pointer"
+            >
+              <i class="fa-solid fa-file-excel"></i> Export Filtered to Excel
+            </button>
           </div>
+
+          <div class="filter-bar">
+    <div class="filter-bar-header">
+        <i class="fa-solid fa-filter"></i> Filter Payments
+    </div>
+    <div class="filter-bar-row">
+        <div class="filter-field">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="filter-search" placeholder="Search subject...">
+        </div>
+        <div class="filter-field">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="filter-name" placeholder="Requester name...">
+        </div>
+        <div class="filter-field">
+            <i class="fa-solid fa-building"></i>
+            <select id="filter-sbu">
+                <option value="">All SBUs</option>
+                <option value="Light Hill Investment">Light Hill Investment</option>
+                <option value="Logistics">Logistics</option>
+                <option value="Insighthills">Insighthills</option>
+                <option value="FX Index">FX Index</option>
+            </select>
+        </div>
+        <div class="filter-field filter-date">
+            <label>From</label>
+            <input type="date" id="filter-from">
+        </div>
+        <div class="filter-field filter-date">
+            <label>To</label>
+            <input type="date" id="filter-to">
+        </div>
+        <button id="filter-clear" class="btn-clear-filter">
+            <i class="fa-solid fa-rotate-left"></i> Clear
+        </button>
+    </div>
+</div>
 
           <table class="data-table">
             <thead>

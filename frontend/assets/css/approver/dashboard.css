@@ -104,3 +104,52 @@
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
 }
+
+.status-pending_pba, .status-pending_cfo, .status-pending_coo {
+    background-color: #fef3c7;
+    color: var(--color-warning);
+}
+
+.status-approved, .status-paid {
+    background-color: #d1fae5;
+    color: var(--color-success);
+}
+
+.status-rejected, .status-cancelled {
+    background-color: #fee2e2;
+    color: var(--color-danger);
+}
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    background-color: var(--color-card-background);
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.filter-bar input, .filter-bar select {
+    padding: 8px 10px;
+    border: 1px solid #64748b5e;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: var(--font-family);
+    background-color: white;
+}
+
+.filter-bar input[type="text"] {
+    flex: 1;
+    min-width: 140px;
+}
+
+.btn-clear-filter {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid #64748b5e;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}

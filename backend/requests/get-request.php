@@ -51,10 +51,21 @@ $paymentStmt = $pdo->prepare('SELECT * FROM payments WHERE request_id = ?');
 $paymentStmt->execute([$requestId]);
 $payment = $paymentStmt->fetch();
 
+$proofStmt = $pdo->prepare('
+    SELECT proof_of_usage.*, users.name as uploader_name 
+    FROM proof_of_usage 
+    JOIN users ON proof_of_usage.uploaded_by = users.id 
+    WHERE proof_of_usage.request_id = ? 
+    ORDER BY proof_of_usage.created_at DESC
+');
+$proofStmt->execute([$requestId]);
+$proofOfUsage = $proofStmt->fetchAll();
+
 echo json_encode([
     'success' => true,
     'request' => $request,
     'approvals' => $approvals,
     'attachments' => $attachments,
-    'payment' => $payment ?: null
+    'payment' => $payment ?: null,
+    'proof_of_usage' => $proofOfUsage
 ]);

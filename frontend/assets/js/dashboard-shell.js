@@ -64,6 +64,7 @@ async function initDashboardShell(activePage) {
 
   document.getElementById("user-name").textContent = session.name;
   injectNotificationBell();
+  injectMobileDrawer();
   loadNotifications();
 
   const navLinks = ROLE_NAV[session.role] || [];
@@ -164,4 +165,35 @@ async function markNotifRead(id) {
   } catch (err) {
     console.error("Mark read error:", err);
   }
+}
+
+function injectMobileDrawer() {
+  const topbar = document.querySelector(".topbar");
+  const sidebar = document.querySelector(".sidebar");
+  if (!topbar || !sidebar || document.getElementById("hamburger-btn")) return;
+
+  const hamburgerHTML = `<button class="hamburger-btn" id="hamburger-btn"><i class="fa-solid fa-bars"></i></button>`;
+  topbar.insertAdjacentHTML("afterbegin", hamburgerHTML);
+
+  const backdrop = document.createElement("div");
+  backdrop.className = "sidebar-backdrop";
+  backdrop.id = "sidebar-backdrop";
+  document.body.appendChild(backdrop);
+
+  document.getElementById("hamburger-btn").addEventListener("click", () => {
+    sidebar.classList.add("open");
+    backdrop.classList.add("open");
+  });
+
+  backdrop.addEventListener("click", () => {
+    sidebar.classList.remove("open");
+    backdrop.classList.remove("open");
+  });
+
+  sidebar.querySelectorAll(".sidebar-nav a").forEach((link) => {
+    link.addEventListener("click", () => {
+      sidebar.classList.remove("open");
+      backdrop.classList.remove("open");
+    });
+  });
 }

@@ -42,6 +42,31 @@
             <h2>Requests You Have Acted On</h2>
           </div>
 
+          <div class="filter-bar">
+            <input
+              type="text"
+              id="filter-search"
+              placeholder="Search subject..."
+            />
+            <input
+              type="text"
+              id="filter-name"
+              placeholder="Requester name..."
+            />
+            <select id="filter-sbu">
+              <option value="">All SBUs</option>
+              <option value="Light Hill Investment">
+                Light Hill Investment
+              </option>
+              <option value="Logistics">Logistics</option>
+              <option value="Insighthills">Insighthills</option>
+              <option value="FX Index">FX Index</option>
+            </select>
+            <input type="date" id="filter-from" />
+            <input type="date" id="filter-to" />
+            <button id="filter-clear" class="btn-clear-filter">Clear</button>
+          </div>
+
           <table class="data-table">
             <thead>
               <tr>
@@ -53,7 +78,9 @@
               </tr>
             </thead>
             <tbody id="history-body">
-              <tr><td colspan="5">Loading...</td></tr>
+              <tr>
+                <td colspan="5">Loading...</td>
+              </tr>
             </tbody>
           </table>
         </div>

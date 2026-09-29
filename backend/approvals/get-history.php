@@ -9,18 +9,20 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$approverId = $_SESSION['user_id'];
+$role = $_SESSION['role'];
 
 $stmt = $pdo->prepare('
-    SELECT requests.*, users.name as requester_name, 
-           approvals.action as my_action, approvals.comment as my_comment, approvals.created_at as acted_at
+    SELECT requests.*, requester.name as requester_name, 
+           approvals.action as my_action, approvals.comment as my_comment, approvals.created_at as acted_at,
+           approver.name as approver_name
     FROM approvals
     JOIN requests ON approvals.request_id = requests.id
-    JOIN users ON requests.requester_id = users.id
-    WHERE approvals.approver_id = ?
+    JOIN users AS requester ON requests.requester_id = requester.id
+    JOIN users AS approver ON approvals.approver_id = approver.id
+    WHERE approvals.role = ?
     ORDER BY approvals.created_at DESC
 ');
-$stmt->execute([$approverId]);
+$stmt->execute([$role]);
 $history = $stmt->fetchAll();
 
 echo json_encode(['success' => true, 'requests' => $history]);
